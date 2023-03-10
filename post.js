@@ -1,4 +1,4 @@
-const apiUrl = "https://jsonplaceholder.typicode.com"; 
+const apiUrl = "https://jsonplaceholder.typicode.com";
 
 async function fetchPosts() {
   try {
@@ -12,45 +12,44 @@ async function fetchPosts() {
   } catch (e) {
     console.log(e);
   }
+}
 
-  function listsPosts(postContainerElementId) {
-    const postContainerElement = document.getElementById(
-      postContainerElementId
-    );
+function listsPosts(postContainerElementId) {
+  const postContainerElement = document.getElementById
+  (postContainerElementId);
 
-    if (!postContainerElement) {
-      return;
-    }
-
-    fetchPosts()
-      .then((posts) => {
-        if (!posts) {
-          postContainerElement.innerHTML = "No posts fetched.";
-          return;
-        }
-
-        for (const post of posts) {
-          postContainerElement.appendChildl(postElement(post));
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  if (!postContainerElement) {
+    return;
   }
 
-  function postElement(post) {
-    const anchorElement = document.createElement("a");
-    anchorElement.setAttribute("href", `${apiUrl}/posts/${post.id}`);
-    anchorElement.setAttribute("target", "_blank");
-    anchorElement.innerText = capitalizeFirstLetter(post.title);
+  fetchPosts()
+  .then((posts) => {
+      if (!posts) {
+        postContainerElement.innerHTML = "No posts fetched.";
+        return;
+      }
 
-    const postTitleElement = document.createElement("h3");
-    postTitleElement.appendChild(anchorElement);
+      for (const post of posts) {
+        postContainerElement.appendChild(postElement(post));
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+}
 
-    return postTitleElement;
-  }
+function postElement(post) {
+  const anchorElement = document.createElement("a");
+  anchorElement.setAttribute("href", `${apiUrl}/posts/${post.id}`);
+  anchorElement.setAttribute("target", "_blank");
+  anchorElement.innerText = capitalizeFirstLetter(post.title);
 
-  function capitalizeFirstLetter(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
+  const postTitleElement = document.createElement("h3");
+  postTitleElement.appendChild(anchorElement);
+
+  return postTitleElement;
+}
+
+function capitalizeFirstLetter(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
